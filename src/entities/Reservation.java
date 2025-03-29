@@ -37,9 +37,17 @@ public class Reservation {
 		return diferenca_int;
 	}
 	
-	public void updateDates(LocalDate checkin, LocalDate checkout) {
-		this.checkin = checkin;
-		this.checkout = checkout;
+	public String updateDates(LocalDate checkin, LocalDate checkout) {
+		
+		if (checkin.isBefore(this.checkin) || checkout.isBefore(this.checkout)){
+			return "Reservation dates for update must be future dates";
+		}
+		if (checkout.isBefore(checkin)) {			
+			return "Check-out date must be after check-in date";
+		}	
+			this.checkin = checkin;
+			this.checkout = checkout;
+			return null;		
 	}
 	
 	@Override	

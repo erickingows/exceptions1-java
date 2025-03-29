@@ -22,7 +22,7 @@ public class Program {
 		LocalDate checkout = LocalDate.parse(sc.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		
 		if (checkin.isAfter(checkout)) {
-			System.out.println("Erro: A data de check-in não pode ser posterior à data de check-out.");
+			System.out.println("Error in reservation: Check-out date must be after check-in date");
 			return;
 		}
 		else {
@@ -35,18 +35,16 @@ public class Program {
 			System.out.print("Check-out date (dd/MM/yyyy): ");
 			LocalDate checkout_ = LocalDate.parse(sc.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 			
-			if (checkin_.isAfter(checkout_)) {
-				System.out.println("Erro: A data de check-in não pode ser posterior à data de check-out.");
-				return;
-			}			
-			else if (checkin_.isAfter(checkin) || checkout_.isAfter(checkout)){
-				System.out.println("Error in reservation: Reservation dates for update must be future dates");
-				return;
+
+			String error = reservation.updateDates(checkin_, checkout_);
+			if (error != null) {
+				System.out.println("Error in reservation : " + error);
 			}
 			else {
-				reservation.updateDates(checkin_, checkout_);
-				System.out.println(reservation);
+				System.out.println("Reservation: " + reservation);
 			}
+			
+			
 			
 			
 		}
